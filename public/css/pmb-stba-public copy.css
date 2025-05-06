@@ -1,0 +1,130 @@
+/**
+ * All of the CSS for your public-facing functionality should be
+ * included in this file.
+ */
+
+/* Container Sidebar Full - Retain this code */
+.pmb-full-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 280px;
+    height: 100vh;
+    background-color: #fff;
+    border-right: 1px solid #ddd;
+    box-shadow: 2px 0 8px rgba(0,0,0,0.1);
+    padding: 20px;
+    overflow-y: auto;
+    z-index: 1000;
+    padding-top: 52px; /* Adjust for admin bar */
+}
+
+/* Admin bar adjustment - Retain this code */
+.admin-bar .pmb-full-sidebar {
+    top: 32px; /* WP admin bar height */
+}
+
+@media screen and (max-width: 782px) {
+    .admin-bar .pmb-full-sidebar {
+        top: 46px; /* WP mobile admin bar height */
+        padding-top: 20px;
+    }
+}
+
+/* PERBAIKAN: Margin content hanya untuk halaman dengan sidebar */
+/* Gunakan selector yang spesifik dengan class body khusus */
+body.has-pmb-sidebar .pmb-content-wrapper {
+    margin-left: 300px;
+    width: calc(100% - 300px);
+    max-width: 1200px; /* Optional: maximum width */
+    transition: margin-left 0.3s ease;
+}
+
+/* HAPUS kode margin sebelumnya yang terlalu umum */
+/* 
+.page-pmb .site-content,
+.page-pmb #main,
+.page-pmb #content,
+.page-pmb .content-area {
+    margin-left: 300px;
+    width: calc(100% - 300px);
+    max-width: none;
+}
+*/
+
+/* Responsive untuk layar kecil - sidebar akan hilang */
+@media screen and (max-width: 768px) {
+    .pmb-full-sidebar {
+        position: static;
+        width: 100%;
+        height: auto;
+        border-right: none;
+        box-shadow: none;
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+    
+    body.has-pmb-sidebar .pmb-content-wrapper {
+        margin-left: 0;
+        width: 100%;
+    }
+}
+
+/* Tambahan: Pastikan main content memiliki padding yang cukup */
+.pmb-content-wrapper {
+    padding: 20px;
+}
+
+/* Navigation menu styling */
+.pmb-navigation-menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.pmb-navigation-menu li {
+    margin-bottom: 10px;
+}
+
+.pmb-navigation-menu a {
+    display: flex;
+    align-items: center;
+    padding: 10px 12px;
+    text-decoration: none;
+    color: #333;
+    border-radius: 5px;
+    transition: all 0.2s ease;
+}
+
+.pmb-navigation-menu a:hover {
+    background: #f5f5f5;
+    color: #0073aa;
+}
+
+.pmb-navigation-menu .dashicons {
+    margin-right: 8px;
+}
+
+/* Logout tombol khusus */
+.pmb-logout-link {
+    border-top: 1px solid #eee;
+    margin-top: 10px;
+    padding-top: 10px;
+    color: #e74c3c;
+}
+
+.pmb-logout-link:hover {
+    background: #fde9e7;
+}
+
+.floating-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.floating-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
