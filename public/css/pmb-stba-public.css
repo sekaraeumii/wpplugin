@@ -128,3 +128,72 @@ body.has-pmb-sidebar .pmb-content-wrapper {
     transform: translateY(-5px);
     box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
 }
+
+/* Integrasi dengan Astra Theme */
+.pmb-stba-container {
+    max-width: var(--ast-container-default-max-width);
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+/* Perbaikan untuk form-control pada Astra */
+.pmb-stba-container .form-control {
+    border-radius: 4px;
+    padding: 10px 12px;
+    border: 1px solid var(--ast-border-color);
+    transition: all 0.3s;
+}
+
+.pmb-stba-container .form-control:focus {
+    border-color: var(--ast-global-color-0);
+    box-shadow: 0 0 0 0.25rem rgba(var(--ast-global-color-0-rgb), 0.25);
+}
+
+/* Perbaikan untuk tombol pada Astra */
+.pmb-stba-container .btn-primary {
+    background: var(--ast-global-color-0);
+    border: none;
+    padding: 10px 20px;
+    font-weight: 600;
+    border-radius: 4px;
+    transition: all 0.3s;
+}
+
+.pmb-stba-container .btn-primary:hover {
+    background: var(--ast-global-color-1);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Card dalam Astra */
+.pmb-stba-container .card {
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid var(--ast-border-color);
+    overflow: hidden;
+}
+
+.pmb-stba-container .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.pmb-stba-container .card-header {
+    background: var(--ast-global-color-0);
+    color: #fff;
+    border: none;
+    padding: 15px 20px;
+    font-weight: 600;
+}
+
+.pmb-stba-container .card-body {
+    padding: 25px;
+}
+
+/* Responsivitas */
+@media (max-width: 921px) {
+    .pmb-stba-container {
+        padding: 30px 15px;
+    }
+}
