@@ -51,17 +51,17 @@ class Pmb_Stba_Public {
     $this->plugin_name = $plugin_name;
     $this->version = $version;
     
+    // Add hooks for processing forms (prioritas tinggi)
+    add_action('init', array($this, 'process_login'), 5);
+    add_action('init', array($this, 'process_registration'), 10);
+    add_action('init', array($this, 'process_user_registration'), 10);
+	add_action('init', array($this, 'process_payment_upload'), 10);
     // Add hooks for redirecting users
     add_action('template_redirect', array($this, 'redirect_registered_users'));
     add_action('template_redirect', array($this, 'generate_registration_card'));
     
-    // Add hooks for processing forms
-    add_action('init', array($this, 'process_registration'));
-    add_action('init', array($this, 'process_payment_upload'));
-    
     // Register shortcodes
     add_action('init', array($this, 'register_shortcodes'));
-	add_action('init', array($this, 'process_user_registration'));
 }
 
 	/**
@@ -415,19 +415,21 @@ class Pmb_Stba_Public {
         exit;
     }
     
-    // Selalu arahkan ke halaman informasi setelah login
-    $information_page_id = get_option('pmb_information_page');
+    // Gunakan HANYA Carbon Fields untuk konsistensi
+    $information_page_id = carbon_get_theme_option('pmb_information_page');
+    $profile_page_id = carbon_get_theme_option('pmb_profile_page');
     
-    // Jika halaman informasi tidak ditemukan, gunakan carbon fields
-    if (empty($information_page_id)) {
-        $information_page_id = carbon_get_theme_option('pmb_information_page');
-    }
-    
-    // Jika masih tidak ditemukan, gunakan profile page sebagai fallback
-    if (empty($information_page_id)) {
-        wp_redirect(get_permalink(carbon_get_theme_option('pmb_profile_page')));
-    } else {
+    // Selalu prioritaskan redirect ke halaman informasi
+    if (!empty($information_page_id) && $page = get_post($information_page_id)) {
         wp_redirect(get_permalink($information_page_id));
+        exit;
+    } elseif (!empty($profile_page_id) && $page = get_post($profile_page_id)) {
+        wp_redirect(get_permalink($profile_page_id));
+        exit;
+    } else {
+        // Fallback ke homepage jika kedua halaman tidak ditemukan
+        wp_redirect(home_url());
+        exit;
     }
 }
 

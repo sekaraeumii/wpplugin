@@ -132,15 +132,29 @@ class Pmb_Stba_Admin {
 	 * @since    1.0.0
 	 */
 	public function enqueue_scripts() {
-		wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/pmb-stba-admin.js', array('jquery'), $this->version, false);
+		// jQuery dipanggil lebih awal
+		wp_enqueue_script('jquery');
 		
-		// Make sure to load Bootstrap 4.3.1 JS
-		wp_enqueue_script($this->plugin_name . 'bootstrap', plugin_dir_url(__FILE__) . 'js/bootstrap.min.js', array('jquery'), '4.3.1', true);
+		// Bootstrap bundle (termasuk Popper.js yang dibutuhkan untuk modal)
+		wp_enqueue_script($this->plugin_name . '-bootstrap', 
+			plugin_dir_url(__FILE__) . 'js/bootstrap.bundle.min.js', 
+			array('jquery'), 
+			'4.3.1', 
+			true);
+			
+		wp_enqueue_script($this->plugin_name . '-datatables', 
+			plugin_dir_url(__FILE__) . 'js/jquery.dataTables.min.js', 
+			array('jquery'), 
+			$this->version, 
+			true);
+			
+		wp_enqueue_script($this->plugin_name, 
+			plugin_dir_url(__FILE__) . 'js/pmb-stba-admin.js', 
+			array('jquery', $this->plugin_name . '-bootstrap'), 
+			$this->version, 
+			true);
 		
-		// DataTables
-		wp_enqueue_script($this->plugin_name . 'datatables', plugin_dir_url(__FILE__) . 'js/jquery.dataTables.min.js', array('jquery'), $this->version, true);
-		
-		// Localize the script with new data
+		// Localize script
 		wp_localize_script($this->plugin_name, 'pmb_stba_admin', array(
 			'ajax_url' => admin_url('admin-ajax.php'),
 			'nonce' => wp_create_nonce('pmb_stba_admin_nonce')
