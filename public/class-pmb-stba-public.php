@@ -126,7 +126,8 @@ class Pmb_Stba_Public {
     add_shortcode('pmb_user_registration_form', array($this, 'user_registration_form_shortcode'));
     add_shortcode('pmb_profile', array($this, 'profile_shortcode'));
     add_shortcode('pmb_payment_info', array($this, 'render_payment_info'));
-    add_shortcode('pmb_information', array($this, 'information_shortcode')); // Tambahkan ini
+    add_shortcode('pmb_information', array($this, 'information_shortcode'));
+    add_shortcode('pmb_wa_admin', array($this, 'wa_admin_shortcode'));
 }
 
 	/**
@@ -633,5 +634,48 @@ class Pmb_Stba_Public {
 		}
 		
 		return;
+	}
+
+	/**
+	 * WhatsApp admin contact buttons shortcode
+	 *
+	 * @since    1.0.0
+	 * @return   string    HTML output for WhatsApp contact buttons
+	 */
+	public function wa_admin_shortcode() {
+		// Get admin WhatsApp settings
+		$no_wa_1 = get_option('pmb_stba_wa_no_1', '');
+		$nama_wa_1 = get_option('pmb_stba_wa_nama_1', '');
+		$pesan_wa_1 = get_option('pmb_stba_wa_pesan_1', '');
+		
+		$no_wa_2 = get_option('pmb_stba_wa_no_2', '');
+		$nama_wa_2 = get_option('pmb_stba_wa_nama_2', '');
+		$pesan_wa_2 = get_option('pmb_stba_wa_pesan_2', '');
+		
+		$output = '<div class="pmb-wa-admin-container">';
+		
+		// Admin 1 button
+		if (!empty($no_wa_1) && !empty($nama_wa_1)) {
+			$wa_link_1 = 'https://wa.me/' . $no_wa_1 . '?text=' . urlencode($pesan_wa_1);
+			$output .= '<div class="pmb-wa-admin-button">';
+			$output .= '<a href="' . esc_url($wa_link_1) . '" target="_blank" class="button button-primary">';
+			$output .= '<span class="dashicons dashicons-whatsapp"></span> Hubungi ' . esc_html($nama_wa_1);
+			$output .= '</a>';
+			$output .= '</div>';
+		}
+		
+		// Admin 2 button
+		if (!empty($no_wa_2) && !empty($nama_wa_2)) {
+			$wa_link_2 = 'https://wa.me/' . $no_wa_2 . '?text=' . urlencode($pesan_wa_2);
+			$output .= '<div class="pmb-wa-admin-button">';
+			$output .= '<a href="' . esc_url($wa_link_2) . '" target="_blank" class="button button-primary">';
+			$output .= '<span class="dashicons dashicons-whatsapp"></span> Hubungi ' . esc_html($nama_wa_2);
+			$output .= '</a>';
+			$output .= '</div>';
+		}
+		
+		$output .= '</div>';
+		
+		return $output;
 	}
 }

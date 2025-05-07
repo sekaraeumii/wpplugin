@@ -225,6 +225,16 @@ class Pmb_Stba_Admin {
 			'pmb-stba-payment-proofs',
 			array($this, 'render_payment_proofs_page')
 		);
+		
+		// Submenu WhatsApp Admin
+		add_submenu_page(
+			'pmb-stba',
+			'WhatsApp Admin',
+			'WhatsApp Admin',
+			'manage_options',
+			'pmb-stba-wa-admin',
+			array($this, 'render_wa_admin_page')
+		);
 
 		// Detail User page (hidden from menu)
 		add_submenu_page(
@@ -289,6 +299,15 @@ class Pmb_Stba_Admin {
 	 */
 	public function render_payment_proofs_page() {
 		include plugin_dir_path(__FILE__) . 'partials/pmb-stba-payment-proofs.php';
+	}
+
+	/**
+	 * Render the WhatsApp Admin settings page.
+	 *
+	 * @since    1.0.0
+	 */
+	public function render_wa_admin_page() {
+		include plugin_dir_path(__FILE__) . 'partials/pmb-stba-wa-admin.php';
 	}
 
 	/**
