@@ -178,139 +178,19 @@ class Pmb_Stba_Activator {
             }
         }
         
-        // Get logo URL or use a placeholder
-        $logo_url = get_option('_crb_ppdb_logo', 'https://via.placeholder.com/150');
-        
-        // Create a modern home page content with better styling
-        $content = '<!-- wp:cover {"url":"' . esc_url(get_option('_crb_ppdb_background', '')) . '","dimRatio":80,"overlayColor":"primary","minHeight":100,"minHeightUnit":"vh","contentPosition":"center center","align":"full","style":{"spacing":{"padding":{"top":"2rem","right":"2rem","bottom":"2rem","left":"2rem"}}}} -->
-<div class="wp-block-cover alignfull" style="padding-top:2rem;padding-right:2rem;padding-bottom:2rem;padding-left:2rem;min-height:100vh">
-    <span aria-hidden="true" class="wp-block-cover__background has-primary-background-color has-background-dim-80 has-background-dim"></span>
-    
-    <!-- wp:group {"style":{"border":{"radius":"16px"},"spacing":{"padding":{"top":"3rem","right":"3rem","bottom":"3rem","left":"3rem"}}},"backgroundColor":"background","layout":{"type":"constrained","contentSize":"800px"}} -->
-    <div class="wp-block-group has-background-background-color has-background" style="border-radius:16px;padding-top:3rem;padding-right:3rem;padding-bottom:3rem;padding-left:3rem">
-        
-        <!-- wp:image {"align":"center","width":150,"height":150,"scale":"cover","sizeSlug":"large","className":"is-style-rounded","style":{"border":{"radius":"50%","width":"6px"},"color":{"duotone":["#0693e3","#0693e3"]}}} -->
-        <figure class="wp-block-image aligncenter size-large is-resized is-style-rounded" style="border-width:6px;border-radius:50%">
-            <img src="' . esc_url($logo_url) . '" alt="Logo PMB" style="object-fit:cover;width:150px;height:150px"/>
-        </figure>
-        <!-- /wp:image -->
-        
-        <!-- wp:heading {"textAlign":"center","level":1,"style":{"typography":{"fontWeight":"700","lineHeight":"1.2","fontSize":"2.5rem"},"spacing":{"margin":{"bottom":"1.5rem","top":"1rem"}}}} -->
-        <h1 class="wp-block-heading has-text-align-center" style="margin-top:1rem;margin-bottom:1.5rem;font-size:2.5rem;font-weight:700;line-height:1.2">' . get_bloginfo('name') . '</h1>
-        <!-- /wp:heading -->
-        
-        <!-- wp:paragraph {"align":"center","style":{"spacing":{"margin":{"bottom":"2rem"}}}} -->
-        <p class="has-text-align-center" style="margin-bottom:2rem">Penerimaan Mahasiswa Baru Tahun Akademik ' . date('Y') . '/' . (date('Y')+1) . '</p>
-        <!-- /wp:paragraph -->
-        
-        <!-- wp:separator {"backgroundColor":"primary","className":"is-style-wide"} -->
-        <hr class="wp-block-separator has-text-color has-primary-color has-alpha-channel-opacity has-primary-background-color has-background is-style-wide"/>
-        <!-- /wp:separator -->
-        
-        <!-- wp:spacer {"height":"20px"} -->
-        <div style="height:20px" aria-hidden="true" class="wp-block-spacer"></div>
-        <!-- /wp:spacer -->
-        
-        <!-- wp:columns -->
-        <div class="wp-block-columns">
-            <!-- wp:column -->
-            <div class="wp-block-column">
-                <!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
-                <div class="wp-block-buttons">
-                    <!-- wp:button {"backgroundColor":"primary","textColor":"white","width":100,"style":{"border":{"radius":"8px"},"spacing":{"padding":{"top":"0.9rem","bottom":"0.9rem"}},"typography":{"fontSize":"1.1rem","fontWeight":"600"}},"className":"is-style-fill"} -->
-                    <div class="wp-block-button has-custom-width wp-block-button__width-100 is-style-fill" style="font-size:1.1rem;font-weight:600"><a class="wp-block-button__link has-white-color has-primary-background-color has-text-color has-background wp-element-button" style="border-radius:8px;padding-top:0.9rem;padding-bottom:0.9rem" href="/pmb-register">Daftar PMB</a></div>
-                    <!-- /wp:button -->
-                </div>
-                <!-- /wp:buttons -->
-            </div>
-            <!-- /wp:column -->
-
-            <!-- wp:column -->
-            <div class="wp-block-column">
-                <!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
-                <div class="wp-block-buttons">
-                    <!-- wp:button {"backgroundColor":"primary","textColor":"white","width":100,"style":{"border":{"radius":"8px"},"spacing":{"padding":{"top":"0.9rem","bottom":"0.9rem"}},"typography":{"fontSize":"1.1rem","fontWeight":"600"}},"className":"is-style-fill"} -->
-                    <div class="wp-block-button has-custom-width wp-block-button__width-100 is-style-fill" style="font-size:1.1rem;font-weight:600"><a class="wp-block-button__link has-white-color has-primary-background-color has-text-color has-background wp-element-button" style="border-radius:8px;padding-top:0.9rem;padding-bottom:0.9rem" href="/data-pendaftar">Data Pendaftar</a></div>
-                    <!-- /wp:button -->
-                </div>
-                <!-- /wp:buttons -->
-            </div>
-            <!-- /wp:column -->
-        </div>
-        <!-- /wp:columns -->
-        
-        <!-- wp:spacer {"height":"10px"} -->
-        <div style="height:10px" aria-hidden="true" class="wp-block-spacer"></div>
-        <!-- /wp:spacer -->
-        
-        <!-- wp:columns -->
-        <div class="wp-block-columns">
-            <!-- wp:column -->
-            <div class="wp-block-column">
-                <!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
-                <div class="wp-block-buttons">
-                    <!-- wp:button {"backgroundColor":"secondary","textColor":"white","width":100,"style":{"border":{"radius":"8px"},"spacing":{"padding":{"top":"0.9rem","bottom":"0.9rem"}},"typography":{"fontSize":"1.1rem","fontWeight":"600"}},"className":"is-style-fill"} -->
-                    <div class="wp-block-button has-custom-width wp-block-button__width-100 is-style-fill" style="font-size:1.1rem;font-weight:600"><a class="wp-block-button__link has-white-color has-secondary-background-color has-text-color has-background wp-element-button" style="border-radius:8px;padding-top:0.9rem;padding-bottom:0.9rem" href="/pmb-login">Login Akun</a></div>
-                    <!-- /wp:button -->
-                </div>
-                <!-- /wp:buttons -->
-            </div>
-            <!-- /wp:column -->
-
-            <!-- wp:column -->
-            <div class="wp-block-column">
-                <!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
-                <div class="wp-block-buttons">
-                    <!-- wp:button {"backgroundColor":"secondary","textColor":"white","width":100,"style":{"border":{"radius":"8px"},"spacing":{"padding":{"top":"0.9rem","bottom":"0.9rem"}},"typography":{"fontSize":"1.1rem","fontWeight":"600"}},"className":"is-style-fill"} -->
-                    <div class="wp-block-button has-custom-width wp-block-button__width-100 is-style-fill" style="font-size:1.1rem;font-weight:600"><a class="wp-block-button__link has-white-color has-secondary-background-color has-text-color has-background wp-element-button" style="border-radius:8px;padding-top:0.9rem;padding-bottom:0.9rem" href="/hubungi-admin-pmb">WA Admin PMB</a></div>
-                    <!-- /wp:button -->
-                </div>
-                <!-- /wp:buttons -->
-            </div>
-            <!-- /wp:column -->
-        </div>
-        <!-- /wp:columns -->
-        
-        <!-- wp:spacer {"height":"10px"} -->
-        <div style="height:10px" aria-hidden="true" class="wp-block-spacer"></div>
-        <!-- /wp:spacer -->
-        
-        <!-- wp:separator {"backgroundColor":"secondary","className":"is-style-dots"} -->
-        <hr class="wp-block-separator has-text-color has-secondary-color has-alpha-channel-opacity has-secondary-background-color has-background is-style-dots"/>
-        <!-- /wp:separator -->
-        
-        <!-- wp:paragraph {"align":"center","style":{"typography":{"fontSize":"0.9rem"},"spacing":{"margin":{"top":"2rem"}}}} -->
-        <p class="has-text-align-center" style="margin-top:2rem;font-size:0.9rem">© ' . date('Y') . ' ' . get_bloginfo('name') . ' | Sekolah Tinggi Bahasa Asing Malang</p>
-        <!-- /wp:paragraph -->
-    </div>
-    <!-- /wp:group -->
-</div>
-<!-- /wp:cover -->
-
-<!-- wp:html -->
-<style>
-.wp-block-button__link {
-    transition: all 0.3s ease !important;
-}
-.wp-block-button__link:hover {
-    transform: translateY(-3px) !important;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
-}
-.wp-block-group {
-    box-shadow: 0 20px 40px rgba(0,0,0,0.1) !important;
-    transition: all 0.3s ease !important;
-}
-</style>
-<!-- /wp:html -->';
+ 
 
         // Create the home page
         $page_data = array(
             'post_title'    => 'PMB STBA Home',
-            'post_content'  => $content,
+            'post_content'  => '',
             'post_status'   => 'publish',
             'post_type'     => 'page',
             'post_name'     => 'pmb-home',
-            'comment_status' => 'closed'
+            'comment_status' => 'closed',
+            'meta_input'    => array(
+                '_wp_page_template' => 'pmb-landing-page.php'
+            )
         );
         
         // Insert the page into the database
