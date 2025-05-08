@@ -17,7 +17,6 @@ class Pmb_Stba_Carbon {
     public function __construct() {
         add_action('carbon_fields_register_fields', array($this, 'register_carbon_fields'));
         add_action('carbon_fields_fields_registered', array($this, 'import_page_ids_to_carbon_fields'));
-        add_action('carbon_fields_theme_options_container_saved', array($this, 'update_homepage_schedule'));
         add_action('carbon_fields_theme_options_container_saved', array($this, 'add_widget_to_sidebar'));
         
         // Add these new hooks
@@ -43,21 +42,6 @@ class Pmb_Stba_Carbon {
                         'closed' => __('Ditutup', 'pmb-stba')
                     ))
                     ->set_default_value('open'),
-                
-                // Jadwal Gelombang fields
-                Field::make('separator', 'schedule_separator', __('Jadwal Gelombang', 'pmb-stba')),
-                Field::make('text', 'pmb_wave1_start', __('Gelombang 1 - Mulai', 'pmb-stba'))
-                    ->set_default_value('1 Februari'),
-                Field::make('text', 'pmb_wave1_end', __('Gelombang 1 - Selesai', 'pmb-stba'))
-                    ->set_default_value('31 Maret'),
-                Field::make('text', 'pmb_wave2_start', __('Gelombang 2 - Mulai', 'pmb-stba'))
-                    ->set_default_value('1 April'),
-                Field::make('text', 'pmb_wave2_end', __('Gelombang 2 - Selesai', 'pmb-stba'))
-                    ->set_default_value('31 Mei'),
-                Field::make('text', 'pmb_wave3_start', __('Gelombang 3 - Mulai', 'pmb-stba'))
-                    ->set_default_value('1 Juni'),
-                Field::make('text', 'pmb_wave3_end', __('Gelombang 3 - Selesai', 'pmb-stba'))
-                    ->set_default_value('31 Juli'),
                 
                 Field::make('separator', 'form_separator', __('Pengaturan Form', 'pmb-stba')),
                 Field::make('text', 'pmb_home_page', __('Halaman Beranda', 'pmb-stba'))
@@ -103,95 +87,6 @@ class Pmb_Stba_Carbon {
                 // Delete the temporary option after import
                 delete_option($field);
             }
-        }
-    }
-
-    /**
-     * Update homepage content when PMB schedule settings are changed
-     * 
-     * @param int $container_id The container ID being saved
-     */
-    public function update_homepage_schedule($container_id) {
-        try {
-            // Ambil ID halaman beranda
-            $homepage_id = carbon_get_theme_option('pmb_home_page');
-            
-            // Jika tidak ada ID, coba cari halaman berdasarkan slug
-            if (empty($homepage_id)) {
-                // Coba cari halaman dengan slug pmb-home
-                $homepage = get_page_by_path('pmb-home');
-                if ($homepage) {
-                    $homepage_id = $homepage->ID;
-                } else {
-                    return; // Keluar jika tidak ada halaman yang ditemukan
-                }
-            }
-            
-            // Pastikan homepage_id ada dan valid
-            if (empty($homepage_id) || !get_post($homepage_id)) {
-                return;
-            }
-            
-            // Get current year
-            $year = carbon_get_theme_option('pmb_year');
-            if (empty($year)) {
-                $year = date('Y');
-            }
-            
-            // Dapatkan nilai jadwal
-            $wave1_start = carbon_get_theme_option('pmb_wave1_start');
-            $wave1_end = carbon_get_theme_option('pmb_wave1_end');
-            $wave2_start = carbon_get_theme_option('pmb_wave2_start');
-            $wave2_end = carbon_get_theme_option('pmb_wave2_end');
-            $wave3_start = carbon_get_theme_option('pmb_wave3_start');
-            $wave3_end = carbon_get_theme_option('pmb_wave3_end');
-            
-            // Dapatkan konten halaman
-            $homepage_post = get_post($homepage_id);
-            if (!$homepage_post) {
-                return;
-            }
-            
-            $content = $homepage_post->post_content;
-            
-            // Log untuk debugging
-            error_log('Original content: ' . substr($content, 0, 100) . '...');
-            
-            // Gunakan pola regex yang lebih fleksibel untuk menangkap blok konten gelombang
-            $gelombang1_pattern = '/(GELOMBANG 1<\/h4>.*?<p[^>]*>.*?<strong>)(.*?)(<\/strong>)/is';
-            $gelombang2_pattern = '/(GELOMBANG 2<\/h4>.*?<p[^>]*>.*?<strong>)(.*?)(<\/strong>)/is';
-            $gelombang3_pattern = '/(GELOMBANG 3<\/h4>.*?<p[^>]*>.*?<strong>)(.*?)(<\/strong>)/is';
-            
-            // Format tanggal yang akan ditampilkan
-            $wave1_text = $wave1_start . ' - ' . $wave1_end . ' ' . $year;
-            $wave2_text = $wave2_start . ' - ' . $wave2_end . ' ' . $year;
-            $wave3_text = $wave3_start . ' - ' . $wave3_end . ' ' . $year;
-            
-            // Lakukan penggantian dengan preg_replace
-            $content = preg_replace($gelombang1_pattern, '$1' . $wave1_text . '$3', $content);
-            $content = preg_replace($gelombang2_pattern, '$1' . $wave2_text . '$3', $content);
-            $content = preg_replace($gelombang3_pattern, '$1' . $wave3_text . '$3', $content);
-            
-            // Log untuk debugging
-            error_log('Modified content: ' . substr($content, 0, 100) . '...');
-            
-            // Update halaman
-            $update_args = array(
-                'ID' => $homepage_id,
-                'post_content' => $content
-            );
-            
-            $result = wp_update_post($update_args);
-            
-            // Log hasil
-            if (is_wp_error($result)) {
-                error_log('Error updating PMB homepage: ' . $result->get_error_message());
-            } else {
-                error_log('PMB homepage updated successfully');
-            }
-        } catch (Exception $e) {
-            error_log('PMB STBA: Error in update_homepage_schedule - ' . $e->getMessage());
-            return; // Hentikan eksekusi tetapi biarkan penyimpanan berhasil
         }
     }
 
